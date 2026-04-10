@@ -1,4 +1,4 @@
-"""Utility functions for logging, configuration, and helpers."""
+"""用于日志记录、配置和辅助函数的工具函数。"""
 
 import logging
 import sys
@@ -11,34 +11,34 @@ def setup_logging(
     log_file: Optional[str] = None,
     format_string: Optional[str] = None,
 ) -> None:
-    """Configure logging for the application.
+    """配置应用程序的日志记录。
 
     Args:
-        level: Logging level (e.g., logging.DEBUG, logging.INFO).
-        log_file: Optional path to log file. If None, logs to console only.
-        format_string: Custom format string. Uses default if None.
+        level: 日志级别（例如：logging.DEBUG, logging.INFO）。
+        log_file: 日志文件的可选路径。如果为 None，则仅记录到控制台。
+        format_string: 自定义格式字符串。如果为 None，则使用默认值。
     """
     if format_string is None:
         format_string = (
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
 
-    # Create formatter
+    # 创建格式化器
     formatter = logging.Formatter(format_string)
 
-    # Setup root logger
+    # 设置根日志记录器
     root_logger = logging.getLogger()
     root_logger.setLevel(level)
 
-    # Clear existing handlers
+    # 清除现有的处理器
     root_logger.handlers.clear()
 
-    # Console handler
+    # 控制台处理器
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(formatter)
     root_logger.addHandler(console_handler)
 
-    # File handler (optional)
+    # 文件处理器（可选）
     if log_file:
         log_path = Path(log_file)
         log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -46,63 +46,63 @@ def setup_logging(
         file_handler.setFormatter(formatter)
         root_logger.addHandler(file_handler)
 
-    logging.info(f"Logging configured: level={logging.getLevelName(level)}, file={log_file}")
+    logging.info(f"日志记录已配置：级别={logging.getLevelName(level)}, 文件={log_file}")
 
 
 def get_resource_path(relative_path: str) -> Path:
-    """Get absolute path to resource, works for dev and PyInstaller bundle.
+    """获取资源的绝对路径，适用于开发和 PyInstaller 打包。
 
-    This is critical for PyInstaller single-file executables where resources
-    are extracted to a temporary folder.
+    这对于 PyInstaller 单文件可执行文件至关重要，因为资源
+    会被提取到临时文件夹中。
 
     Args:
-        relative_path: Relative path to the resource from project root.
+        relative_path: 从项目根目录到资源的相对路径。
 
     Returns:
-        Absolute Path object to the resource.
+        指向资源的绝对 Path 对象。
     """
-    # Check if running in PyInstaller bundle
+    # 检查是否在 PyInstaller 打包中运行
     if getattr(sys, 'frozen', False):
-        # Running as compiled executable
+        # 作为编译后的可执行文件运行
         base_path = Path(sys.executable).parent
     else:
-        # Running in normal Python environment
+        # 在正常 Python 环境中运行
         base_path = Path(__file__).parent.parent.parent
 
     return base_path / relative_path
 
 
 class Config:
-    """Application configuration management."""
+    """应用程序配置管理。"""
 
-    # Default hotkey to trigger dialog (Ctrl+Alt+A)
+    # 触发对话框的默认热键 (Ctrl+Alt+A)
     DEFAULT_HOTKEY = "ctrl+alt+a"
     
-    # AI Configuration
+    # AI 配置
     DEFAULT_AI_MODEL = "gpt-4o"
     DEFAULT_AI_TEMPERATURE = 0.1
     
-    # Skill execution settings
-    SKILL_EXECUTION_DELAY = 0.5  # seconds between skills
+    # 技能执行设置
+    SKILL_EXECUTION_DELAY = 0.5  # 技能之间的秒数
     
-    # GUI settings
+    # GUI 设置
     DIALOG_WIDTH = 500
     DIALOG_HEIGHT = 180
     
     @classmethod
     def get_hotkey(cls) -> str:
-        """Get the configured hotkey."""
+        """获取配置的热键。"""
         import os
         return os.getenv("KM_AGENT_HOTKEY", cls.DEFAULT_HOTKEY)
     
     @classmethod
     def get_api_key(cls) -> Optional[str]:
-        """Get the AI API key from environment."""
+        """从环境获取 AI API 密钥。"""
         import os
         return os.getenv("OPENAI_API_KEY")
     
     @classmethod
     def get_api_base_url(cls) -> str:
-        """Get the AI API base URL from environment."""
+        """从环境获取 AI API 基础 URL。"""
         import os
         return os.getenv("KM_AGENT_API_BASE_URL", "https://api.openai.com/v1")

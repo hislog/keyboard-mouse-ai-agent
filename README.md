@@ -1,27 +1,27 @@
 # keyboard-mouse-ai-agent
 
-A background AI agent service for Windows that controls the user interface via keyboard shortcuts and atomic skills.
+一个用于 Windows 的后台 AI 代理服务，通过键盘快捷键和原子技能控制用户界面。
 
-## Features
+## 功能特性
 
-- **Hotkey Activation**: Press `Ctrl+Alt+A` (configurable) to invoke the command dialog from anywhere.
-- **AI-Powered Intent Recognition**: Uses LLM (GPT-4o or compatible) to understand natural language commands.
-- **Atomic Skills**: Execute precise GUI automation actions:
-  - Mouse: Click, Double-click, Right-click, Drag, Scroll
-  - Keyboard: Type text, Press hotkeys
-  - Screen Analysis: OCR, Image recognition, Window info
-- **Single File Distribution**: Package as a standalone `.exe` with no external dependencies.
-- **pip Installable**: Install directly from PyPI (future).
+- **热键激活**：按 `Ctrl+Alt+A`（可配置）从任何地方调用命令对话框。
+- **AI 驱动的意图识别**：使用 LLM（GPT-4o 或兼容模型）理解自然语言命令。
+- **原子技能**：执行精确的 GUI 自动化操作：
+  - 鼠标：点击、双击、右键点击、拖拽、滚动
+  - 键盘：输入文本、按下热键
+  - 屏幕分析：OCR、图像识别、窗口信息
+- **单文件分发**：打包为独立的 `.exe`，无需外部依赖。
+- **支持 pip 安装**：可直接从 PyPI 安装（未来）。
 
-## Requirements
+## 系统要求
 
-- **OS**: Windows 10/11 only
-- **Python**: 3.10, 3.11, or 3.12
-- **API Key**: OpenAI API key (or compatible endpoint)
+- **操作系统**：仅限 Windows 10/11
+- **Python**：3.10、3.11 或 3.12
+- **API 密钥**：OpenAI API 密钥（或兼容端点）
 
-## Installation
+## 安装
 
-### From Source (Development)
+### 从源码安装（开发模式）
 
 ```bash
 git clone https://github.com/yourusername/keyboard-mouse-ai-agent.git
@@ -29,108 +29,108 @@ cd keyboard-mouse-ai-agent
 pip install -e ".[dev]"
 ```
 
-### Set Environment Variables
+### 设置环境变量
 
 ```powershell
 # PowerShell
 setx OPENAI_API_KEY "your-openai-api-key-here"
 ```
 
-## Usage
+## 使用方法
 
-1. **Start the Agent**:
+1. **启动代理服务**：
    ```bash
    km-agent
    ```
 
-2. **Invoke Command Dialog**:
-   Press `Ctrl+Alt+A` (or your configured hotkey).
+2. **调用命令对话框**：
+   按 `Ctrl+Alt+A`（或您配置的热键）。
 
-3. **Enter Natural Language Command**:
-   Examples:
-   - "Open Chrome and search for Python tutorials"
-   - "Copy the selected text and paste it into Notepad"
-   - "Take a screenshot of the top-left corner and save it"
-   - "Click on the button labeled 'Submit'"
+3. **输入自然语言命令**：
+   示例：
+   - "打开 Chrome 并搜索 Python 教程"
+   - "复制选中的文本并粘贴到记事本中"
+   - "截取左上角的屏幕截图并保存"
+   - "点击标有'提交'的按钮"
 
-4. **AI Executes Actions**: The agent interprets your command and performs the necessary clicks, typing, or other operations.
+4. **AI 执行操作**：代理解释您的命令并执行必要的点击、输入或其他操作。
 
-## Configuration
+## 配置
 
-| Environment Variable | Description | Default |
+| 环境变量 | 描述 | 默认值 |
 |---------------------|-------------|---------|
-| `OPENAI_API_KEY` | Your OpenAI API key | Required |
-| `KM_AGENT_HOTKEY` | Hotkey combination | `ctrl+alt+a` |
-| `KM_AGENT_API_BASE_URL` | Custom API endpoint | `https://api.openai.com/v1` |
+| `OPENAI_API_KEY` | 您的 OpenAI API 密钥 | 必需 |
+| `KM_AGENT_HOTKEY` | 热键组合 | `ctrl+alt+a` |
+| `KM_AGENT_API_BASE_URL` | 自定义 API 端点 | `https://api.openai.com/v1` |
 
-## Building Standalone Executable
+## 构建独立可执行文件
 
-To create a single-file `.exe` for distribution:
+要创建用于分发的单文件 `.exe`：
 
 ```bash
 pip install pyinstaller
 pyinstaller --onefile --name km-agent src/km_agent/main.py
 ```
 
-Or use the provided spec file:
+或使用提供的 spec 文件：
 
 ```bash
 pyinstaller pyinstaller.spec
 ```
 
-The executable will be in the `dist/` folder.
+可执行文件将在 `dist/` 文件夹中。
 
-## Architecture
+## 架构
 
 ```
 km_agent/
-├── ai/                 # AI intent recognition
-│   ├── client.py       # LLM API client
-│   └── models.py       # Pydantic models
-├── skills/             # Atomic automation skills
-│   ├── base.py         # Base skill class
+├── ai/                 # AI 意图识别
+│   ├── client.py       # LLM API 客户端
+│   └── models.py       # Pydantic 模型
+├── skills/             # 原子自动化技能
+│   ├── base.py         # 基础技能类
 │   ├── mouse_keyboard.py
 │   └── screen_analysis.py
-├── gui/                # User interface
-│   └── dialog.py       # Command dialog
-├── utils/              # Utilities
-│   └── helpers.py      # Logging, config
-└── main.py             # Entry point
+├── gui/                # 用户界面
+│   └── dialog.py       # 命令对话框
+├── utils/              # 工具函数
+│   └── helpers.py      # 日志记录、配置
+└── main.py             # 入口点
 ```
 
-## Development
+## 开发
 
-### Code Style
-This project follows the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html).
+### 代码风格
+本项目遵循 [Google Python 风格指南](https://google.github.io/styleguide/pyguide.html)。
 
-### Running Tests
+### 运行测试
 ```bash
 pytest tests/
 ```
 
-### Linting & Formatting
+### 代码检查与格式化
 ```bash
 black src/ tests/
 isort src/ tests/
 mypy src/
 ```
 
-## Roadmap
+## 路线图
 
-- [ ] Support for multiple LLM providers (Anthropic, Local models)
-- [ ] Visual feedback during action execution
-- [ ] Macro recording and playback
-- [ ] Plugin system for custom skills
-- [ ] Multi-monitor support enhancements
+- [ ] 支持多个 LLM 提供商（Anthropic、本地模型）
+- [ ] 操作执行期间的视觉反馈
+- [ ] 宏录制和回放
+- [ ] 自定义技能的插件系统
+- [ ] 多显示器支持增强
 
-## License
+## 许可证
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
 
-## Contributing
+## 贡献
 
-Contributions are welcome! Please open an issue or submit a pull request.
+欢迎贡献！请提出问题或提交拉取请求。
 
 ---
 
-**Note**: This tool has powerful capabilities. Use responsibly and only on systems you own or have permission to automate.
+**注意**：此工具具有强大的功能。请负责任地使用，仅在您拥有或有权自动化的系统上使用。
