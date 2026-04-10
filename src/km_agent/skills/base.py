@@ -1,11 +1,11 @@
-"""Base class for all atomic skills."""
+"""所有原子技能的基础类。"""
 
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List
 
 
 class SkillResult:
-    """Represents the result of a skill execution."""
+    """表示技能执行的结果。"""
 
     def __init__(self, success: bool, message: str, data: Any = None):
         self.success = success
@@ -17,28 +17,28 @@ class SkillResult:
 
 
 class BaseSkill(ABC):
-    """Abstract base class for all atomic automation skills."""
+    """所有原子自动化技能的抽象基础类。"""
 
     name: str = "base_skill"
-    description: str = "Base skill description"
+    description: str = "基础技能描述"
 
     @abstractmethod
     def execute(self, **kwargs) -> SkillResult:
-        """Execute the skill with given parameters.
+        """使用给定参数执行技能。
 
         Args:
-            **kwargs: Parameters required by the specific skill.
+            **kwargs: 特定技能所需的参数。
 
         Returns:
-            SkillResult indicating success or failure.
+            表示成功或失败的 SkillResult。
         """
         pass
 
     @abstractmethod
     def get_parameters_schema(self) -> List[Dict[str, Any]]:
-        """Return the schema of parameters required by this skill.
+        """返回此技能所需参数的模式。
 
         Returns:
-            List of dictionaries describing each parameter (name, type, description).
+            描述每个参数的字典列表（名称、类型、描述）。
         """
         pass

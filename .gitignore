@@ -1,69 +1,58 @@
 ```
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  http://pyinstaller.readthedocs.io/en/stable/working.html#using-pyinstaller-with-virtual-environments
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.so
 .Python
+env/
+venv/
+.venv/
+.ENV
+.ENV.local
+.env
+.env.local
+.env.*
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage/
+htmlcov/
+
+# Build artifacts
 build/
 dist/
-*.spec
-
-# Virtual environments
-venv/
-env/
-ENV/
-.venv/
-.env/
-env.bak/
-ENV.bak/
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.coverage.*
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
+*.egg
+*.egg-info/
+*.so
+*.dylib
+*.dll
+*.exe
 
 # Logs
 *.log
 
-# Environment variables
-.env
-.env.local
-*.env*
-
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# General
+*.out
+*.class
+*.o
+*.obj
+*.a
+*.tar
+*.zip
+*.gz
+*.tar.gz
+*.tar.bz2
+*.tar.xz
 ```

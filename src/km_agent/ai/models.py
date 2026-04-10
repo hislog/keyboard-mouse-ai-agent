@@ -1,47 +1,47 @@
-"""Pydantic models for AI intent recognition and action planning."""
+"""用于 AI 意图识别和动作规划的 Pydantic 模型。"""
 
 from typing import Optional, List, Literal, Any
 from pydantic import BaseModel, Field
 
 
 class ActionParameter(BaseModel):
-    """Represents a single parameter for an atomic skill action."""
+    """表示原子技能动作的单个参数。"""
 
-    name: str = Field(..., description="The name of the parameter (e.g., 'x', 'y', 'text').")
-    value: Any = Field(..., description="The value of the parameter.")
-    type: str = Field(..., description="The expected data type (e.g., 'int', 'str', 'float').")
+    name: str = Field(..., description="参数名称（例如：'x', 'y', 'text'）。")
+    value: Any = Field(..., description="参数值。")
+    type: str = Field(..., description="期望的数据类型（例如：'int', 'str', 'float'）。")
 
 
 class PlannedAction(BaseModel):
-    """Represents a single atomic action to be executed."""
+    """表示要执行的单个原子动作。"""
 
     skill_name: str = Field(
         ...,
-        description="The name of the atomic skill to invoke (e.g., 'click', 'type_text', 'drag').",
+        description="要调用的原子技能名称（例如：'click', 'type_text', 'drag'）。",
     )
     parameters: List[ActionParameter] = Field(
-        default_factory=list, description="List of parameters required for the skill."
+        default_factory=list, description="技能所需的参数列表。"
     )
     description: Optional[str] = Field(
-        None, description="A brief natural language description of what this action does."
+        None, description="此动作作用的简短自然语言描述。"
     )
 
 
 class IntentRecognitionResult(BaseModel):
-    """The structured output from the AI representing the user's intent."""
+    """来自 AI 的结构化输出，表示用户的意图。"""
 
-    intent: str = Field(..., description="The classified intent (e.g., 'open_app', 'click_element', 'search_web').")
-    confidence: float = Field(..., ge=0.0, le=1.0, description="Confidence score of the intent recognition.")
+    intent: str = Field(..., description="分类的意图（例如：'open_app', 'click_element', 'search_web'）。")
+    confidence: float = Field(..., ge=0.0, le=1.0, description="意图识别的置信度分数。")
     actions: List[PlannedAction] = Field(
-        default_factory=list, description="Sequence of atomic actions to fulfill the intent."
+        default_factory=list, description="实现意图的原子动作序列。"
     )
     reasoning: Optional[str] = Field(
-        None, description="Optional explanation of the AI's reasoning process."
+        None, description="AI 推理过程的可选解释。"
     )
 
 
 class ChatMessage(BaseModel):
-    """Represents a message in the conversation history."""
+    """表示对话历史中的消息。"""
 
     role: Literal["system", "user", "assistant"]
     content: str
